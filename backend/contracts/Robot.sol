@@ -4,7 +4,7 @@ pragma solidity >=0.4.22 <0.9.0;
 import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
 contract Robot is Initializable {
-    string public name;
+    string private name;
     string private master;
 
     function initialize(string memory _name, string memory _master) public initializer {

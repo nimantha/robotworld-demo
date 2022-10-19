@@ -9,16 +9,14 @@ import "./RobotBeacon.sol";
 contract RobotFactory is Ownable {
   RobotBeacon immutable beacon;
   
-  address[] public robotArray;
-  uint32 private robotCount = 0;
-
+  address[] private robotArray;
 
   constructor(address _implAddress) {
       beacon = new RobotBeacon(_implAddress);
   }
 
-
-  function createRobot(string memory _name, string memory _master) external onlyOwner returns(address)  {
+  function createRobot(string memory _name, string memory _master) external returns(address)  {
+    require(bytes(_name).length > 0 && bytes(_master).length > 0, "Invalid inputs for Robot initialization!");
       BeaconProxy proxy = new BeaconProxy(address(beacon), 
             abi.encodeWithSelector(Robot(address(0)).initialize.selector, _name, _master)
         );
@@ -26,31 +24,27 @@ contract RobotFactory is Ownable {
         return address(proxy);
   }
 
-  function getRobotCount() external view returns (uint256) {
-    return robotArray.length;
-  }
-
-  function getAllRobots() public view returns(address[] memory) {
+  function getAllRobots() external view returns(address[] memory) {
     return robotArray;
   }
 
-  function setRobotMaster(uint32 _idx, string memory _master) external onlyOwner {
+  function setRobotMaster(uint32 _idx, string memory _master) external {
     Robot(robotArray[_idx]).setMaster(_master);
   }
 
-  function getRobotMaster(uint32 _idx) public view returns(string memory) {
+  function getRobotMaster(uint32 _idx) external view returns(string memory) {
     return Robot(robotArray[_idx]).getMaster();
   }
 
-  function useRobotBrain(uint32 _idx) public view returns(string memory) {
+  function useRobotBrain(uint32 _idx) external view returns(string memory) {
     return Robot(robotArray[_idx]).useBrain();
   }
 
-  function setImplementation(address _implAddress) public {
+  function setImplementation(address _implAddress) external {
     beacon.update(_implAddress);
   }
 
-  function getImplementation() public view returns(address) {
+  function getImplementation() external view returns(address) {
     return beacon.implementation();
   }
 

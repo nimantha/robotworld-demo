@@ -11,14 +11,6 @@ contract("RobotFactory", function (accounts) {
     return assert.isTrue(true);
   });
 
-  describe("getRobotCount()", () => {
-    it("should return '10'", async () => {
-      const robotFactory = await RobotFactory.deployed();
-      const result = await robotFactory.getRobotCount();
-      assert.equal(result, 10);
-    });
-  });
-
   describe("owner()", () => {
     it("should return the owner", async () => {
       const robotFactory = await RobotFactory.deployed();

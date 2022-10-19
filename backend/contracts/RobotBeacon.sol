@@ -7,7 +7,7 @@ contract RobotBeacon {
 
     UpgradeableBeacon immutable beacon;
     
-    address public implAddress;
+    address private implAddress;
 
     constructor(address _implAddress) {
         beacon = new UpgradeableBeacon(_implAddress);
@@ -18,12 +18,6 @@ contract RobotBeacon {
         beacon.upgradeTo(_implAddress);
         implAddress = _implAddress;
     }
-
-    
-    // function update(string memory _implAddressStr) public {
-    //     beacon.upgradeTo(parseAddr(_implAddressStr));
-    //     implAddress = parseAddr(_implAddressStr);
-    // }
 
     function implementation() public view returns(address) {
         return beacon.implementation();
