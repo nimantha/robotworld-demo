@@ -50,7 +50,7 @@ h1 {
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid #adadad;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
@@ -65,6 +65,34 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+li {
+  list-style-type:none;
+}
+
+.robot_item {
+  cursor: pointer;
+}
+
+.robot_item:hover {
+  background-color: aliceblue;
+}
+
+.connection-status {
+  color: green;
+}
+
+.robot-details {
+  height: 144px;
+}
+
+.robot-box {
+  width: 780px;
+}
+
+.sub-box {
+  margin: 10px;
 }
 
 @media (prefers-color-scheme: light) {

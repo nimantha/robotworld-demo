@@ -18,8 +18,8 @@
 </script>
 
 <main>
- {#if window.ethereum}
-  <h2>Browser wallet is already connected to metamask: {metamaskConnected}</h2>
+ {#if window.ethereum && {metamaskConnected}}
+    <h3 class="connection-status">Wallet Connected to Metamask</h3>
  {/if}
  {#if window.ethereum && !metamaskConnected}
   <button on:click={onClickConncetWallet}>Conncet Wallet</button>
