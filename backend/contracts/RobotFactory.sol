@@ -1,12 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.9.0;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/proxy/beacon/BeaconProxy.sol";
 import "./Robot.sol";
 import "./RobotBeacon.sol";
 
-contract RobotFactory is Ownable {
+contract RobotFactory {
   RobotBeacon immutable beacon;
   
   address[] private robotArray;
@@ -15,10 +14,10 @@ contract RobotFactory is Ownable {
       beacon = new RobotBeacon(_implAddress);
   }
 
-  function createRobot(string memory _name, string memory _master) external returns(address)  {
-    require(bytes(_name).length > 0 && bytes(_master).length > 0, "Invalid inputs for Robot initialization!");
+  function createRobot(string memory _master) external returns(address)  {
+    require(bytes(_master).length > 0, "Invalid inputs for Robot initialization!");
       BeaconProxy proxy = new BeaconProxy(address(beacon), 
-            abi.encodeWithSelector(Robot(address(0)).initialize.selector, _name, _master)
+            abi.encodeWithSelector(Robot(address(0)).initialize.selector, _master) 
         );
         robotArray.push(address(proxy));
         return address(proxy);

@@ -1,15 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.9.0;
 
-import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC721/ERC721Upgradeable.sol";
 
-contract Robot is Initializable {
-    string private name;
+contract Robot is ERC721Upgradeable {
     string private master;
 
-    function initialize(string memory _name, string memory _master) public initializer {
-        name = _name;
+    function initialize(string memory _master) public initializer {
         master = _master;
+        __ERC721_init("Robot", "RBT");
     }
 
     function useBrain() public view returns(string memory) {
@@ -24,3 +23,4 @@ contract Robot is Initializable {
         return master;
     }
 }
+
